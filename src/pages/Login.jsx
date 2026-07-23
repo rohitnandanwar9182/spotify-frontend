@@ -25,9 +25,9 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto mt-12 max-w-sm">
+    <div className="mx-auto mt-6 max-w-sm px-1 sm:mt-12">
       <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-amber-dim">side a</p>
-      <h1 className="mt-2 font-display text-3xl font-semibold text-paper">Welcome back</h1>
+      <h1 className="mt-2 font-display text-2xl font-semibold text-paper sm:text-3xl">Welcome back</h1>
       <p className="mt-2 text-sm text-muted">Log in to keep the reel spinning.</p>
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
@@ -38,7 +38,7 @@ export default function Login() {
             required
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
-            className="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm text-paper outline-none focus:border-amber"
+            className="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm text-paper outline-none transition-colors focus:border-amber"
             placeholder="you@example.com"
           />
         </label>
@@ -50,17 +50,17 @@ export default function Login() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm text-paper outline-none focus:border-amber"
+            className="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm text-paper outline-none transition-colors focus:border-amber"
             placeholder="••••••••"
           />
         </label>
 
-        {error && <p className="text-sm text-danger">{error}</p>}
+        {error && <p className="animate-fade-in text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-2 rounded-full bg-amber px-4 py-2.5 text-sm font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="press mt-2 rounded-full bg-amber px-4 py-2.5 text-sm font-semibold text-ink shadow-md shadow-amber/20 transition-all hover:opacity-90 hover:shadow-lg hover:shadow-amber/30 disabled:opacity-60"
         >
           {loading ? 'Logging in…' : 'Log in'}
         </button>
@@ -68,7 +68,7 @@ export default function Login() {
 
       <p className="mt-6 text-sm text-muted">
         New here?{' '}
-        <Link to="/register" className="text-amber hover:underline">
+        <Link to="/register" className="text-amber transition-opacity hover:opacity-80 hover:underline">
           Create an account
         </Link>
       </p>
