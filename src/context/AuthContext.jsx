@@ -9,21 +9,29 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [ready, setReady] = useState(false)
 
-  // NOTE: the backend has no GET /api/auth/me endpoint, so there is no way
-  // to verify an existing cookie on page load. We persist the last known
-  // user in localStorage purely so the UI doesn't flash back to "logged out"
-  // on refresh. If the cookie has actually expired or been cleared, the next
-  // protected request will 401 and ProtectedRoute will bounce back to /login.
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
+    let cancelled = false
+
+    async function restoreSession() {
       try {
-        setUser(JSON.parse(stored))
-      } catch {
-        localStorage.removeItem(STORAGE_KEY)
+        const { data } = await api.get('/api/auth/me')
+        if (!cancelled) persist(data.user)
+      } catch (error) {
+        if (!cancelled) {
+          persist(null)
+          if (error.response?.status !== 401) {
+            console.error('Unable to restore the session.', error)
+          }
+        }
+      } finally {
+        if (!cancelled) setReady(true)
       }
     }
-    setReady(true)
+
+    restoreSession()
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   function persist(nextUser) {
