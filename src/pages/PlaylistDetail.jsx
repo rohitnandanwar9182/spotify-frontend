@@ -25,7 +25,7 @@ export default function PlaylistDetail() {
     async function load() {
       try {
         await loadPlaylist()
-        const { data } = await api.get('/api/music/')
+        const { data } = await api.get('/api/music')
         if (!cancelled) setAllMusics(data.musics || [])
       } catch (err) {
         if (!cancelled) setError(err.response?.data?.message || 'Could not load this playlist.')

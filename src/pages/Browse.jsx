@@ -16,7 +16,7 @@ export default function Browse() {
     let cancelled = false
     async function load() {
       try {
-        const { data } = await api.get('/api/music/')
+        const { data } = await api.get('/api/music')
         if (!cancelled) {
           const all = data.musics || []
           setMusics(all)
