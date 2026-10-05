@@ -40,18 +40,27 @@ export default function Liked() {
   return (
     <div>
       <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-amber-dim">favorites</p>
-      <h1 className="mt-2 font-display text-3xl font-semibold text-paper">Liked</h1>
+      <h1 className="mt-2 font-display text-2xl font-semibold text-paper sm:text-3xl">Liked</h1>
       <p className="mt-2 text-sm text-muted">Tracks you've hearted.</p>
 
       <div className="mt-8">
-        {loading && Array.from({ length: 4 }).map((_, i) => <SkeletonRow key={i} />)}
-        {error && <p className="text-sm text-danger">{error}</p>}
+        {loading &&
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} style={{ '--stagger-index': i }} className="stagger-in">
+              <SkeletonRow />
+            </div>
+          ))}
+        {error && <p className="animate-fade-in text-sm text-danger">{error}</p>}
         {!loading && !error && list.length === 0 && (
-          <p className="text-sm text-muted">Nothing liked yet — hit the heart on any track in Browse.</p>
+          <p className="animate-fade-in text-sm text-muted">
+            Nothing liked yet — hit the heart on any track in Browse.
+          </p>
         )}
         <div className="flex flex-col">
           {list.map((track, i) => (
-            <TrackRow key={track.id} track={track} index={i} list={list} liked onToggleLike={handleUnlike} />
+            <div key={track.id} style={{ '--stagger-index': i }} className="stagger-in">
+              <TrackRow track={track} index={i} list={list} liked onToggleLike={handleUnlike} />
+            </div>
           ))}
         </div>
       </div>

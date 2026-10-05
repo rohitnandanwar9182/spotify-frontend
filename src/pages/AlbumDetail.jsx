@@ -30,29 +30,31 @@ export default function AlbumDetail() {
   }, [albumId])
 
   if (loading) return <p className="text-sm text-muted">Loading album…</p>
-  if (error) return <p className="text-sm text-danger">{error}</p>
+  if (error) return <p className="animate-fade-in text-sm text-danger">{error}</p>
   if (!album) return null
 
   const list = (album.musics || []).map((m) => ({ id: m._id, ...m }))
 
   return (
     <div>
-      <Link to="/albums" className="font-mono text-xs text-muted hover:text-paper">
+      <Link to="/albums" className="press inline-block font-mono text-xs text-muted transition-colors hover:text-paper">
         ← back to albums
       </Link>
 
-      <div className="mt-4 flex items-end gap-6">
-        <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-xl bg-surface-raised">
-          <div className="h-14 w-14 rounded-full border-2 border-dashed border-amber-dim" />
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-6">
+        <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-surface-raised sm:h-32 sm:w-32">
+          <div className="h-11 w-11 rounded-full border-2 border-dashed border-amber-dim sm:h-14 sm:w-14" />
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-amber-dim">album</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold text-paper">{album.title}</h1>
+          <h1 className="mt-1 truncate font-display text-2xl font-semibold text-paper sm:text-3xl">
+            {album.title}
+          </h1>
           <p className="mt-1 text-sm text-muted">{album.artist?.username}</p>
           {list.length > 0 && (
             <button
               onClick={() => playSingle(list[0], list)}
-              className="mt-4 rounded-full bg-amber px-5 py-2 text-xs font-semibold text-ink transition-opacity hover:opacity-90"
+              className="press mt-4 rounded-full bg-amber px-5 py-2 text-xs font-semibold text-ink shadow-md shadow-amber/20 transition-all hover:opacity-90 hover:shadow-lg hover:shadow-amber/30"
             >
               ▶ Play album
             </button>
@@ -63,7 +65,9 @@ export default function AlbumDetail() {
       <div className="mt-8 flex flex-col">
         {list.length === 0 && <p className="text-sm text-muted">This album has no tracks yet.</p>}
         {list.map((track, i) => (
-          <TrackRow key={track.id} track={track} index={i} list={list} />
+          <div key={track.id} style={{ '--stagger-index': i }} className="stagger-in">
+            <TrackRow track={track} index={i} list={list} />
+          </div>
         ))}
       </div>
     </div>
