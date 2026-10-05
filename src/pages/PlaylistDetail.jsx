@@ -75,7 +75,7 @@ export default function PlaylistDetail() {
           <div className="h-11 w-11 rounded-full border-2 border-dashed border-teal sm:h-14 sm:w-14" />
         </div>
         <div className="min-w-0">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-teal">playlist folder</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-teal">playlist</p>
           <h1 className="mt-1 truncate font-display text-2xl font-semibold text-paper sm:text-3xl">
             {playlist.title}
           </h1>

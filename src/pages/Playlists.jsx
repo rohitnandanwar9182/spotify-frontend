@@ -41,7 +41,7 @@ export default function Playlists() {
 
   return (
     <div>
-      <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-amber-dim">your folders</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-amber-dim">your mixtapes</p>
       <h1 className="mt-2 font-display text-2xl font-semibold text-paper sm:text-3xl">Playlists</h1>
 
       <form onSubmit={handleCreate} className="mt-6 flex max-w-sm gap-2">
@@ -49,7 +49,7 @@ export default function Playlists() {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="New playlist folder name"
+          placeholder="New playlist name"
           className="flex-1 rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm text-paper outline-none transition-colors focus:border-amber"
         />
         <button
